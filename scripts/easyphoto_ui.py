@@ -313,12 +313,12 @@ def on_ui_tabs():
                                 label="The Resolution of Photo.", visible=True
                             )
                             with gr.Row():
-                              Ex_prompt = gr.Textbox(
-                                label="Exprompt",
-                                lines=3,
-                                value='portrait',
-                                interactive=True
-                            )
+                                Ex_prompt = gr.Textbox(
+                                    label="Exprompt",
+                                    lines=3,
+                                    value='portrait',
+                                    interactive=True
+                                )
                             with gr.Row():
                                 portrait_ratio  = gr.Dropdown(value="upper-body", elem_id='dropdown', choices=["upper-body", "headshot", "Portrait", "cowboy shot", "Knee shot", "full body", "selfiemirror", ""], label="The Portrait Ratio.", visible=True)
                                 gender          = gr.Dropdown(value="girl", elem_id='dropdown', choices=["girl", "woman", "boy", "man"], label="The Gender of the Person.", visible=True)
@@ -346,10 +346,10 @@ def on_ui_tabs():
                                     if cloth in list(gender_limit_prompt_girls.keys()):
                                         cloth = gender_limit_prompt_girls.get(cloth, 'shirt')
                                         
-                                input_prompt = f"{portrait_ratio}, look at viewer, one twenty years old {gender}, wear {cloth_color} {cloth}, {doing}, {where}, {season}, {time_of_photo}, {weather}, f32"
+                                input_prompt = f"{Ex_prompt}, {portrait_ratio}, look at viewer, one twenty years old {gender}, wear {cloth_color} {cloth}, {doing}, {where}, {season}, {hairstyle}, {time_of_photo}, {weather}, f32"
                                 return input_prompt
 
-                            prompt_inputs = [portrait_ratio, gender, cloth_color, cloth, doing, where, season, time_of_photo, weather]
+                            prompt_inputs = [Ex_prompt, portrait_ratio, gender, cloth_color, cloth, doing, where, season, hairstyle, time_of_photo, weather]
                             for prompt_input in prompt_inputs:
                                 prompt_input.change(update_sd_xl_input_prompt, inputs=prompt_inputs, outputs=sd_xl_input_prompt)
                                 
