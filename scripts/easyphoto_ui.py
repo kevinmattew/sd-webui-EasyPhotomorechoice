@@ -312,26 +312,33 @@ def on_ui_tabs():
                                 choices=[(704, 1408), (768, 1344), (832, 1216), (896, 1152), (960, 1088), (1024, 1024), (1088, 960), (1152, 896), (1216, 832), (1344, 768), (1408, 704), (1536, 640), (1664, 576)], 
                                 label="The Resolution of Photo.", visible=True
                             )
-                            
                             with gr.Row():
-                                portrait_ratio  = gr.Dropdown(value="upper-body", elem_id='dropdown', choices=["upper-body", "headshot"], label="The Portrait Ratio.", visible=True)
+                              Ex_prompt = gr.Textbox(
+                                label="Exprompt",
+                                lines=3,
+                                value='portrait',
+                                interactive=True
+                            )
+                            with gr.Row():
+                                portrait_ratio  = gr.Dropdown(value="upper-body", elem_id='dropdown', choices=["upper-body", "headshot", "Portrait", "cowboy shot", "Knee shot", "full body", "selfiemirror", ""], label="The Portrait Ratio.", visible=True)
                                 gender          = gr.Dropdown(value="girl", elem_id='dropdown', choices=["girl", "woman", "boy", "man"], label="The Gender of the Person.", visible=True)
-                                cloth_color     = gr.Dropdown(value="white", elem_id='dropdown', choices=["white", "orange", "pink", "black", "red", "blue"], label="The Color of the Cloth.", visible=True)
-                                cloth           = gr.Dropdown(value="dress", elem_id='dropdown', choices=["shirt", "overcoat", "dress", "coat", "vest"], label="The Cloth on the Person.", visible=True)
+                                cloth_color     = gr.Dropdown(value="white", elem_id='dropdown', choices=["white", "orange", "pink", "black", "red", "blue", "transparent","green", "brown", "no", ""], label="The Color of the Cloth or NO Cloth.", visible=True)
+                                cloth           = gr.Dropdown(value="dress", elem_id='dropdown', choices=["shirt", "overcoat", "dress", "coat", "vest", "cloth", "jacket", "nurse uniform", "uniform", "suit", "naked"], label="The Cloth on the Person.", visible=True)
                             with gr.Row():
-                                doing           = gr.Dropdown(value="standing", elem_id='dropdown', choices=["standing", "sit"], label="What does the Person do?", visible=True)
-                                where           = gr.Dropdown(value="in the garden with flowers", elem_id='dropdown', choices=["in the garden with flowers", "in the house", "on the lawn", "besides the sea", "besides the lake", "on the bridge", "in the forest", "on the mountain", "on the street", "under water", "under sky"], label="Where is the Person?", visible=True)
-                                season          = gr.Dropdown(value="in the winter", elem_id='dropdown', choices=["in the spring", "in the summer", "in the autumn", "in the winter"], label="Where is the season?", visible=True)
-                                time_of_photo   = gr.Dropdown(value="daytime", elem_id='dropdown', choices=["daytime", "night"], label="Where is the Time?", visible=True)
+                                doing           = gr.Dropdown(value="standing", elem_id='dropdown', choices=["standing", "sit", "lying", "on_stomach", "squatting", "indian_style", ""], label="What does the Person do?", visible=True)
+                                where           = gr.Dropdown(value="in the garden with flowers", elem_id='dropdown', choices=["in the garden with flowers", "in the house", "on the lawn", "besides the sea", "besides the lake", "on the bridge", "in the forest", "on the mountain", "on the street", "under water", "under sky", ""], label="Where is the Person?", visible=True)
+                                season          = gr.Dropdown(value="in the winter", elem_id='dropdown', choices=["in the spring", "in the summer", "in the autumn", "in the winter", ""], label="Where is the season?", visible=True)
+                                hairstyle       = gr.Dropdown(value="blunt_bangs", elem_id='dropdown', choices=["blunt_bangs", "curly_hair", "ponytail", "twintails", "wavy_hair", "Crew cut", "Slicked-back", "Bowl cut", "facial_hair",""] label="What is the hair style?", visible=True)
                             with gr.Row():
-                                weather         = gr.Dropdown(value="snow", elem_id='dropdown', choices=["snow", "rainy", "sunny"], label="Where is the weather?", visible=True)
+                                time_of_photo   = gr.Dropdown(value="daytime", elem_id='dropdown', choices=["daytime", "night", ""], label="Where is the Time?", visible=True)
+                                weather         = gr.Dropdown(value="snow", elem_id='dropdown', choices=["snow", "rainy", "sunny", ""], label="Where is the weather?", visible=True)
 
                             sd_xl_input_prompt = gr.Text(
                                 label="Sd XL Input Prompt", interactive=False,
                                 value="upper-body, look at viewer, one twenty years old girl, wear white dress, standing, in the garden with flowers, in the winter, daytime, snow, f32", visible=False
                             )
 
-                            def update_sd_xl_input_prompt(portrait_ratio, gender, cloth_color, cloth, doing, where, season, time_of_photo, weather):
+                            def update_sd_xl_input_prompt(Ex_prompt, portrait_ratio, gender, cloth_color, cloth, doing, where, season, hairstyle, time_of_photo, weather):
                                 
                                 # first time add gender hack for XL prompt, suggest by Nenly
                                 gender_limit_prompt_girls = {'dress':'shirt'}
